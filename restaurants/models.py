@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from venues.models import Venue
 
@@ -48,3 +49,7 @@ class Restaurant(Venue):
     has_carryouts = models.NullBooleanField()
     has_kids_menu = models.NullBooleanField()
     has_wifi = models.NullBooleanField()
+
+    def save(self, *args, **kwargs):
+        self.venue_model_type = 'restaurants.restaurant'
+        super(Restaurant, self).save(*args, **kwargs)
