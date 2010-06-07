@@ -2,44 +2,14 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from venues.models import Venue
 
-CUISINE_CHOICES = (
-    ('american', 'American'),
-    ('argentine', 'Argentine'),
-    ('asian', 'Asian'),
-    ('bbq', 'Barbeque'),
-    ('cajun', 'Cajun/Creole'),
-    ('caribbean', 'Caribbean'),
-    ('chinese', 'Chinese'),
-    ('cuban', 'Cuban'),
-    ('deli', 'Deli'),
-    ('ethiopian', 'Ethiopian'),
-    ('fast', 'Fast Food'),
-    ('fine', 'Fine Dining'),
-    ('french', 'French'),
-    ('german', 'German'),
-    ('greek', 'Greek'),
-    ('hotdog', 'Hot Dogs'),
-    ('hungarian', 'Hungarian'),
-    ('indian', 'Indian'),
-    ('indonesian', 'Indonesian'),
-    ('italian', 'Italian'),
-    ('japanese', 'Japanese'),
-    ('korean', 'Korean'),
-    ('kosher', 'Kosher'),
-    ('mexican', 'Mexican'),
-    ('pizza', 'Pizza'),
-    ('seafood', 'Seafood'),
-    ('southern', 'Southern'),
-    ('steak', 'Steak'),
-    ('sushi', 'Sushi Bar'),
-    ('texmex', 'Tex-Mex'),
-    ('thai', 'Thai'),
-    ('vegan', 'Vegan'),
-    ('vietnam', 'Vietnamese'),
-)
+class RestaurantCuisineType(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.name
 
 class Restaurant(Venue):
-    cuisine = models.CharField(max_length=50, choices=CUISINE_CHOICES)
+    cuisine = models.ForeignKey(RestaurantCuisineType)
     price_range = models.CharField(max_length=25, blank=True)
     delivery = models.NullBooleanField()
     buffet = models.NullBooleanField()
